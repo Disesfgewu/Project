@@ -71,5 +71,5 @@ def forcast(AllOutPut , lstm , regression_model , k = 0):
 
     df = pd.DataFrame(predict_power, columns=['答案'])
     df.insert(0, '序號', ex_question )
-    df.to_csv(f'{k}_output.csv', index=False)
+    df.to_csv(f'./result/{k}_output.csv', index=False)
     print('Output CSV File Saved')
