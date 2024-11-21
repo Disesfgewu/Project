@@ -27,13 +27,13 @@ from regression_models.VotingRegressor import *
 # from regression_models.GradientBoostingRegression import *
 # from regression_models.SupportVectorRegression import *
 # from regression_models.GradientDescentRegression import *
-# from regression_models.XgboostRegression import *
-# from regression_models.CatboostRegression import *
-# from regression_models.LightgbmRegression import *
-# from regression_models.ElasticnetRegression import *
-# from regression_models.HuberRegression import *
+from regression_models.XgboostRegression import *
+from regression_models.CatboostRegression import *
+from regression_models.LightgbmRegression import *
+from regression_models.ElasticnetRegression import *
+from regression_models.HuberRegression import *
 from regression_models.LassoRegression import *
-# from regression_models.RidgeRegression import *
+from regression_models.RidgeRegression import *
 
 def main():
     start_time = time.time()
@@ -63,9 +63,9 @@ def main():
     # seq_type = ["Transformer", "GRU", "Bidirectional LSTM", "LSTM", "Simple RNN"]
     seq_type = [ "LSTM" ]
     # reg_type = ["Lasso", "ExtraTreesRegressor", "KnnRegression", "VotingRegressor", "Linear", "RandomForestRegressor", "GradientBoostingRegressor", "SupportVectorRegressor", "XGBoost", "CatBoost", "LightGBM", "ElasticNet", "Huber", "Ridge"]
-    reg_type = ["VotingRegressor"]
-    batch_size_option = [64, 128, 256]
-    epoch_option = [100 , 200]
+    reg_type =  ["Lasso", "Linear" , "XGBoost", "CatBoost", "LightGBM", "ElasticNet", "Huber", "Ridge"]
+    batch_size_option = [256]
+    epoch_option = [1]
     k = 0 
     if running_type != "competition":
         # print("111")
@@ -156,7 +156,7 @@ def main():
 
                             if running_type != "competition":
                                 print("a")
-                                forcast( AllOutPut = AllOutPut , lstm = './model/WheatherLSTM_'' + NowDateTime+' + '.h5' , regression_model = f'./model/WeatherRegression_{NowDateTime}' , k = sequential_type + str(batch_size) + "_" + str(epochs))
+                                forcast( AllOutPut = AllOutPut , lstm = f"./model/WeatherLSTM_{NowDateTime}.h5", regression_model = f'Regression_{NowDateTime}.pkl' , k = sequential_type + str(batch_size) + "_" + str(epochs))
                                 # total_difference = calculate(sequential_type, regression_type, batch_size, epochs)
                                 # comp_forcast( AllOutPut = AllOutPut , lstm = f'GRU_CNN_Model_{NowDateTime}.h5' , regression_model = f'./model/WeatherRegression_{NowDateTime}' , k = sequential_type + str(batch_size) + "_" + str(epochs))
                                 import gc

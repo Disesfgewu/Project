@@ -37,3 +37,10 @@ Python 3.12
 2. 確認誤差是否與前次相差不是很多
 3. 跑competition_forcast
 4. 繳交記得刪第一行
+
+
+
+### 目前只能跑
+預測 : LSTM 、 Transformer
+
+回歸： Catboost , Elasticnet , Huber , Lasso , Lightbm , Ridge , Xgboost
