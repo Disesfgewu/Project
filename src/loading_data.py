@@ -26,21 +26,21 @@ def loading_data( sourceFile = "./data/ExampleTrainData(AVG)" , flag = True) :
         file_names = os.listdir( sourceFile )
         all = []
         for file_name in file_names:
-            if file_name.endswith('.csv'):
-                print( file_name )
+            if file_name.endswith('modified3.csv'):
+                # print( file_name )
                 file_path = os.path.join(sourceFile, file_name)
                 df = pd.read_csv(file_path, encoding='utf-8')
                 all.append(df)
         combined_data = pd.concat(all, ignore_index=True)
         return combined_data
 def regression_data(sourceData):
-    # Regression_X_train = sourceData[['WindSpeed(m/s)', 'Pressure(hpa)', 'Temperature(°C)', 'Humidity(%)', 'Sunlight(Lux)' , 'Hour' , 'Season_weight' , 'Sunlight_time(h)' , 'UV' , 'Cloud']].values
-    Regression_X_train = sourceData[['WindSpeed(m/s)', 'Pressure(hpa)', 'Temperature(°C)', 'Humidity(%)', 'Sunlight(Lux)' ]].values
+    Regression_X_train = sourceData[['WindSpeed(m/s)', 'Pressure(hpa)', 'Temperature(°C)', 'Humidity(%)', 'Sunlight(Lux)' , 'Hour' , 'Season_weight' , 'Sunlight_time(h)' , 'UV' , 'Cloud']].values
+    # Regression_X_train = sourceData[['WindSpeed(m/s)', 'Pressure(hpa)', 'Temperature(°C)', 'Humidity(%)', 'Sunlight(Lux)' ]].values
     
     Regression_y_train = sourceData[['Power(mW)']].values 
     return Regression_X_train, Regression_y_train
 
 def LSTM_data(sourceData):
-    # return sourceData[['WindSpeed(m/s)', 'Pressure(hpa)', 'Temperature(°C)', 'Humidity(%)', 'Sunlight(Lux)' , 'Hour' , 'Season_weight' , 'Sunlight_time(h)' , 'UV' , 'Cloud'  ]].values
-    return sourceData[['WindSpeed(m/s)', 'Pressure(hpa)', 'Temperature(°C)', 'Humidity(%)', 'Sunlight(Lux)' ]].values
+    return sourceData[['WindSpeed(m/s)', 'Pressure(hpa)', 'Temperature(°C)', 'Humidity(%)', 'Sunlight(Lux)' , 'Hour' , 'Season_weight' , 'Sunlight_time(h)' , 'UV' , 'Cloud'  ]].values
+    # return sourceData[['WindSpeed(m/s)', 'Pressure(hpa)', 'Temperature(°C)', 'Humidity(%)', 'Sunlight(Lux)' ]].values
 

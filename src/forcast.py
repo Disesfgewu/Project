@@ -5,10 +5,10 @@ from keras.models import load_model
 from sklearn.preprocessing import MinMaxScaler
 import joblib
 
-def forcast(AllOutPut , lstm , regression_model , k = 0):
+def forcast(AllOutPut, lstm, regression_model, k=0):
     LSTM_MinMaxModel = MinMaxScaler().fit(AllOutPut)
-    regressor = load_model( lstm )
-    Regression = joblib.load( regression_model )
+    regressor = load_model(lstm)
+    Regression = joblib.load(regression_model)
     LookBackNum = 12
     ForecastNum = 48
 
@@ -28,11 +28,16 @@ def forcast(AllOutPut , lstm , regression_model , k = 0):
         if LocationCode < 10:
             strLocationCode = '0' + str(LocationCode)
 
-        DataName = './data/ExampleTrainData(IncompleteAVG)/IncompleteAvgDATA_' + strLocationCode + '.csv'
+        DataName = f'./data/ExampleTrainData(IncompleteAVG)/IncompleteAvgDATA_{strLocationCode}_modified3.csv'
         SourceData = pd.read_csv(DataName, encoding='utf-8')
+
+        # 使用扩展后的字段
         ReferTitle = SourceData[['Serial']].values
-        ReferData = SourceData[['WindSpeed(m/s)', 'Pressure(hpa)', 'Temperature(°C)', 'Humidity(%)', 'Sunlight(Lux)' ]].values
-        
+        ReferData = SourceData[
+            ['WindSpeed(m/s)', 'Pressure(hpa)', 'Temperature(°C)', 'Humidity(%)', 'Sunlight(Lux)',
+             'Hour', 'Season_weight', 'Sunlight_time(h)', 'UV', 'Cloud']
+        ].values
+
         inputs = []
 
         for DaysCount in range(len(ReferTitle)):
@@ -43,22 +48,22 @@ def forcast(AllOutPut , lstm , regression_model , k = 0):
 
         for i in range(ForecastNum):
             if i > 0:
-                inputs.append(predict_output[i - 1].reshape(1, 5))  # 确保扩展为 5 列
+                inputs.append(predict_output[i - 1].reshape(1, 10))  # 扩展为 10 列
 
             X_test = []
             X_test.append(inputs[0 + i:LookBackNum + i])
-            
+
             NewTest = np.array(X_test)
-            NewTest = np.reshape(NewTest, (NewTest.shape[0], NewTest.shape[1], 5))
-            
+            NewTest = np.reshape(NewTest, (NewTest.shape[0], NewTest.shape[1], 10))  # 调整输入维度
+
             # 使用 LSTM 模型预测
             predicted = regressor.predict(NewTest)
 
-            # 调整预测输出的形状
+            # 确保形状正确
             if predicted.ndim == 1:
                 predicted = predicted.reshape(-1, 1)  # 调整为 (n_samples, 1)
-            if predicted.shape[1] != 5:
-                predicted = np.tile(predicted, (1, 5))  # 扩展为 5 列
+            if predicted.shape[1] != 10:
+                predicted = np.tile(predicted, (1, 10))  # 扩展为 10 列
 
             predict_output.append(predicted)
 
@@ -67,9 +72,8 @@ def forcast(AllOutPut , lstm , regression_model , k = 0):
             predict_power.append(np.round(regression_prediction, 5).flatten())
 
         count += 48
-        
 
     df = pd.DataFrame(predict_power, columns=['答案'])
-    df.insert(0, '序號', ex_question )
+    df.insert(0, '序號', ex_question)
     df.to_csv(f'./result/{k}_output.csv', index=False)
     print('Output CSV File Saved')

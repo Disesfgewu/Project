@@ -11,7 +11,7 @@ from status_control import *
 from competition import *
 
 sys.path.append('/sequence_models/')
-# from sequence_models.tranformation_model import *
+from sequence_models.tranformation_model import *
 from sequence_models.LSTM_model import *
 # from sequence_models.gru_model import *
 # from sequence_models.simple_rnn_model import *
@@ -61,11 +61,11 @@ def main():
     # running_type = "try again"
     running_type = "try again"
     # seq_type = ["Transformer", "GRU", "Bidirectional LSTM", "LSTM", "Simple RNN"]
-    seq_type = [ "LSTM" ]
+    seq_type = [  "Transformer" ]
     # reg_type = ["Lasso", "ExtraTreesRegressor", "KnnRegression", "VotingRegressor", "Linear", "RandomForestRegressor", "GradientBoostingRegressor", "SupportVectorRegressor", "XGBoost", "CatBoost", "LightGBM", "ElasticNet", "Huber", "Ridge"]
-    reg_type =  ["Lasso", "Linear" , "XGBoost", "CatBoost", "LightGBM", "ElasticNet", "Huber", "Ridge"]
-    batch_size_option = [64 , 128 , 256]
-    epoch_option = [100 , 150 , 200]
+    reg_type =  [ "VotingRegressor" ]
+    batch_size_option = [128, 256]
+    epoch_option = [100, 150, 200]
     k = 0 
     if running_type != "competition":
         # print("111")
@@ -104,7 +104,7 @@ def main():
                             print("Batch size: ", batch_size)
                             print("Epochs: ", epochs)
                             train( X_train, y_train, NowDateTime , epochs, batch_size)
-                            
+                            Regression_y_train = Regression_y_train.ravel()
                             if regression_type == "ExtraTreesRegressor":
                                 ExtraTree_regression_modal( NowDateTime , AllOutPut , Regression_X_train , Regression_y_train )
 

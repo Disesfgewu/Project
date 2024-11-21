@@ -15,8 +15,8 @@ def normal( AllOutPut , LookBackNum ):
 
 
     X_train, y_train = np.array(X_train), np.array(y_train)
-    # X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 10))
-    X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 5))
+    X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 10))
+    # X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 5))
     return X_train , y_train , LSTM_MinMaxModel
 
 def reshape(X_train):
