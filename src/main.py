@@ -64,8 +64,8 @@ def main():
     seq_type = [ "LSTM" ]
     # reg_type = ["Lasso", "ExtraTreesRegressor", "KnnRegression", "VotingRegressor", "Linear", "RandomForestRegressor", "GradientBoostingRegressor", "SupportVectorRegressor", "XGBoost", "CatBoost", "LightGBM", "ElasticNet", "Huber", "Ridge"]
     reg_type =  ["Lasso", "Linear" , "XGBoost", "CatBoost", "LightGBM", "ElasticNet", "Huber", "Ridge"]
-    batch_size_option = [256]
-    epoch_option = [1]
+    batch_size_option = [64 , 128 , 256]
+    epoch_option = [100 , 150 , 200]
     k = 0 
     if running_type != "competition":
         # print("111")
@@ -159,9 +159,9 @@ def main():
                                 forcast( AllOutPut = AllOutPut , lstm = f"./model/WeatherLSTM_{NowDateTime}.h5", regression_model = f'Regression_{NowDateTime}.pkl' , k = sequential_type + str(batch_size) + "_" + str(epochs))
                                 # total_difference = calculate(sequential_type, regression_type, batch_size, epochs)
                                 # comp_forcast( AllOutPut = AllOutPut , lstm = f'GRU_CNN_Model_{NowDateTime}.h5' , regression_model = f'./model/WeatherRegression_{NowDateTime}' , k = sequential_type + str(batch_size) + "_" + str(epochs))
-                                import gc
-                                del regressor
-                                gc.collect()
+                                # import gc
+                                # del regressor
+                                # gc.collect()
                                 # k += 1
                             if running_type == "try 1st":    
                                 print("c")
