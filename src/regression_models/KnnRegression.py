@@ -17,6 +17,6 @@ def knn_regression_modal(NowDateTime, LSTM_MinMaxModel , AllOutPut, Regression_X
     
     os.makedirs('./model', exist_ok=True)
     print( os.getcwd() )
-    joblib.dump(RegressionModel, f'./model/WeatherRegression_{NowDateTime}')
+    joblib.dump(RegressionModel, f'Regression_{NowDateTime}.pkl')
 
     print('KNN R squared:', RegressionModel.score(LSTM_MinMaxModel.transform(Regression_X_train), Regression_y_train))

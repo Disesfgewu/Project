@@ -43,4 +43,4 @@ Python 3.12
 ### 目前只能跑
 預測 : LSTM 、 Transformer
 
-回歸： Catboost , Elasticnet , Huber , Lasso , Lightbm , Ridge , Xgboost
+回歸： Catboost , Elasticnet , Huber , Lasso , Lightbm , Ridge , Xgboost , knn , extratree 
