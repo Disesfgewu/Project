@@ -26,7 +26,7 @@ def output_layer_setting(model, output_units):
     """
     model.add(Dense(units=output_units))  # 输出层
     model.compile(optimizer=Adam(learning_rate=0.001), loss='mean_squared_error')  # 编译模型
-    return model
+    return model 
 
 
 def train(X_train, y_train, NowDateTime, epochs, batch_size):
