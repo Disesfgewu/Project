@@ -25,14 +25,14 @@ def create_modal(AllOutPut, Regression_X_train, Regression_y_train):
         n_estimators=200, max_depth=8, max_features='sqrt', random_state=42
     )
     model3 = GradientBoostingRegressor(
-        n_estimators=150, learning_rate=0.05, max_depth=10, random_state=42
+        n_estimators=150, learning_rate=0.001, max_depth=10, random_state=42
     )
     model4 = XGBRegressor(
-        n_estimators=150, learning_rate=0.25, max_depth=4, reg_alpha=0.1, reg_lambda=1.0, random_state=42,
+        n_estimators=150, learning_rate=0.001, max_depth=4, reg_alpha=0.1, reg_lambda=1.0, random_state=42,
         objective='reg:squarederror'
     )
     model5 = LGBMRegressor(
-        n_estimators=200, learning_rate=0.5, max_depth=8, num_leaves=31, random_state=42
+        n_estimators=200, learning_rate=0.001, max_depth=8, num_leaves=31, random_state=42
     )
 
     # 创建 Voting Regressor

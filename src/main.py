@@ -12,7 +12,7 @@ from competition import *
 
 sys.path.append('/sequence_models/')
 from sequence_models.tranformation_model import *
-from sequence_models.LSTM_model import *
+# from sequence_models.LSTM_model import *
 # from sequence_models.gru_model import *
 # from sequence_models.simple_rnn_model import *
 # from sequence_models.bidirectional_LSTM import *
@@ -64,15 +64,15 @@ def main():
     seq_type = [  "Transformer" ]
     # reg_type = ["Lasso", "ExtraTreesRegressor", "KnnRegression", "VotingRegressor", "Linear", "RandomForestRegressor", "GradientBoostingRegressor", "SupportVectorRegressor", "XGBoost", "CatBoost", "LightGBM", "ElasticNet", "Huber", "Ridge"]
     reg_type =  [ "VotingRegressor" ]
-    batch_size_option = [128, 256]
-    epoch_option = [100, 150, 200]
+    batch_size_option = [64, 128, 256]
+    epoch_option = [80, 100, 120, 150, 200]
     k = 0 
     if running_type != "competition":
         # print("111")
         for sequential_type in seq_type:
 
             if sequential_type == "Transformer":
-                regressor = transformer_model((X_train.shape[1], X_train.shape[2]))
+                regressor = combined_model((X_train.shape[1], X_train.shape[2]))
 
             elif sequential_type == "LSTM":
                 pass
@@ -103,7 +103,7 @@ def main():
                             print("Regression type: ", regression_type)
                             print("Batch size: ", batch_size)
                             print("Epochs: ", epochs)
-                            train( X_train, y_train, NowDateTime , epochs, batch_size)
+                            train( X_train, y_train, epochs, batch_size)
                             Regression_y_train = Regression_y_train.ravel()
                             if regression_type == "ExtraTreesRegressor":
                                 ExtraTree_regression_modal( NowDateTime , AllOutPut , Regression_X_train , Regression_y_train )
@@ -156,7 +156,7 @@ def main():
 
                             if running_type != "competition":
                                 print("a")
-                                forcast( AllOutPut = AllOutPut , lstm = f"./model/WeatherLSTM_{NowDateTime}.h5", regression_model = f'Regression_{NowDateTime}.pkl' , k = sequential_type + str(batch_size) + "_" + str(epochs))
+                                forcast( AllOutPut = AllOutPut , lstm = f"./model/CombinedTransformer_{NowDateTime}.keras", regression_model = f'Regression_{NowDateTime}.pkl' , k = sequential_type + str(batch_size) + "_" + str(epochs))
                                 # total_difference = calculate(sequential_type, regression_type, batch_size, epochs)
                                 # comp_forcast( AllOutPut = AllOutPut , lstm = f'GRU_CNN_Model_{NowDateTime}.h5' , regression_model = f'./model/WeatherRegression_{NowDateTime}' , k = sequential_type + str(batch_size) + "_" + str(epochs))
                                 # import gc
