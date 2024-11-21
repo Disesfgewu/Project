@@ -16,7 +16,7 @@ from sequence_models.LSTM_model import *
 # from sequence_models.gru_model import *
 # from sequence_models.simple_rnn_model import *
 # from sequence_models.bidirectional_LSTM import *
-from sequence_models.gru_tran import *
+# from sequence_models.gru_tran import *
 
 sys.path.append('/regression_models/')
 from regression import *
@@ -75,7 +75,8 @@ def main():
                 regressor = transformer_model((X_train.shape[1], X_train.shape[2]))
 
             elif sequential_type == "LSTM":
-                regressor = improved_gru_cnn_model((X_train.shape[1], X_train.shape[2]))
+                pass
+                # regressor = improved_gru_cnn_model((X_train.shape[1], X_train.shape[2]))
             
             elif sequential_type == "GRU":
                 regressor = gru_model((X_train.shape[1], X_train.shape[2]))
@@ -102,7 +103,7 @@ def main():
                             print("Regression type: ", regression_type)
                             print("Batch size: ", batch_size)
                             print("Epochs: ", epochs)
-                            train_gru_cnn( X_train, y_train, epochs, batch_size)
+                            train( X_train, y_train, NowDateTime , epochs, batch_size)
                             
                             if regression_type == "ExtraTreesRegressor":
                                 ExtraTree_regression_modal( NowDateTime , AllOutPut , Regression_X_train , Regression_y_train )
@@ -155,7 +156,7 @@ def main():
 
                             if running_type != "competition":
                                 print("a")
-                                forcast( AllOutPut = AllOutPut , lstm = f'GRU_CNN_Model_{NowDateTime}.h5' , regression_model = f'./model/WeatherRegression_{NowDateTime}' , k = sequential_type + str(batch_size) + "_" + str(epochs))
+                                forcast( AllOutPut = AllOutPut , lstm = './model/WheatherLSTM_'' + NowDateTime+' + '.h5' , regression_model = f'./model/WeatherRegression_{NowDateTime}' , k = sequential_type + str(batch_size) + "_" + str(epochs))
                                 # total_difference = calculate(sequential_type, regression_type, batch_size, epochs)
                                 # comp_forcast( AllOutPut = AllOutPut , lstm = f'GRU_CNN_Model_{NowDateTime}.h5' , regression_model = f'./model/WeatherRegression_{NowDateTime}' , k = sequential_type + str(batch_size) + "_" + str(epochs))
                                 import gc
