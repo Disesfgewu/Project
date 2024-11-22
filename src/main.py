@@ -64,8 +64,8 @@ def main():
     seq_type = [  "Transformer" ]
     # reg_type = ["Lasso", "ExtraTreesRegressor", "KnnRegression", "VotingRegressor", "Linear", "RandomForestRegressor", "GradientBoostingRegressor", "SupportVectorRegressor", "XGBoost", "CatBoost", "LightGBM", "ElasticNet", "Huber", "Ridge"]
     reg_type =  [ "VotingRegressor" ]
-    batch_size_option = [64, 128, 256]
-    epoch_option = [80, 100, 120, 150, 200]
+    batch_size_option = [256]
+    epoch_option = [1]
     k = 0 
     if running_type != "competition":
         # print("111")
@@ -156,7 +156,7 @@ def main():
 
                             if running_type != "competition":
                                 print("a")
-                                forcast( AllOutPut = AllOutPut , lstm = f"./model/CombinedTransformer_{NowDateTime}.keras", regression_model = f'Regression_{NowDateTime}.pkl' , k = sequential_type + str(batch_size) + "_" + str(epochs))
+                                forcast( AllOutPut = AllOutPut , lstm = f"./model/CombinedTransformer_{NowDateTime}.keras", regression_model = f'Regression_{NowDateTime}.pkl' , k = sequential_type + regression_type + str(batch_size) + "_" + str(epochs))
                                 # total_difference = calculate(sequential_type, regression_type, batch_size, epochs)
                                 # comp_forcast( AllOutPut = AllOutPut , lstm = f'GRU_CNN_Model_{NowDateTime}.h5' , regression_model = f'./model/WeatherRegression_{NowDateTime}' , k = sequential_type + str(batch_size) + "_" + str(epochs))
                                 # import gc
